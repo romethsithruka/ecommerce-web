@@ -1,32 +1,3 @@
-
-<?php
-
-session_start();
-
-if ( !empty($_SESSION['cart']) && isset($_POST['checkout'])){
-  //let user in
-
-//send user home page
-}else{
-  header('location: index.php');
-}
-
-
-
-
-
-
-
-?>
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -91,83 +62,91 @@ if ( !empty($_SESSION['cart']) && isset($_POST['checkout'])){
       </div>
     </nav>
 
-    <!-- checkout -->
+    <!--Account-->
     <section class="my-5 py-5">
-      <div class="container text-center mt-3 pt-5">
-        <h2 class="form-weight-bold">Check Out</h2>
-        <hr class="mx-auto" />
+      <div class="row container mx auto">
+        <div class="text-center mt-3 pt-5 col-lg-6 col-mg-12 col-sm-12">
+          <h3 class="font-weight-blod">Account info</h3>
+          <hr class="mx-auto" />
+          <div class="account-info">
+            <p>Name <span>John</span></p>
+            <p>Email <span>john@email.com</span></p>
+            <p><a href="" id="orders-btn"> Your order</a></p>
+            <p><a href="" id="logout-btn"> Logout</a></p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+          <form id="account-form">
+            <h3>Change password</h3>
+            <hr class="mx-auto" />
+            <div class="form-group">
+              <label> Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="account-password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label> Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="account-password-confirm"
+                name="confirm password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="submit"
+                value="Change Password "
+                class="btn"
+                id="change-pass-btn"
+              />
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="mx-auto container">
-        <form id="checkout-form" method="POST" action="server/place_order.php" >
-          <div class="form-group checkout-small-element">
-            <label for="">Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="checkout-name"
-              name="name"
-              placeholder="Name"
-              required
-            />
-          </div>
-          <div class="form-group checkout-small-element">
-            <label for="">Email</label>
-            <input
-              type="text"
-              class="form-control"
-              id="checkout-email"
-              name="email"
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div class="form-group checkout-small-element">
-            <label for="">Phone</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="checkout-phone"
-              name="phone"
-              placeholder="phone"
-              required
-            />
-          </div>
-          <div class="form-group checkout-small-element">
-            <label for="">City</label>
-            <input
-              type="text"
-              class="form-control"
-              id="checkout-city"
-              name="city"
-              placeholder="city"
-              required
-            />
-          </div>
-          <div class="form-group checkout-large-element">
-            <label for="">Address</label>
-            <input
-              type="text"
-              class="form-control"
-              id="checkout-address"
-              name="address"
-              placeholder="address"
-              required
-            />
-          </div>
-          <div class="form-group checkout-btn-container">
-            
-          <p>Total amount : LKR <?php echo $_SESSION['total']; ?></p>
-          
-          <input
-              type="submit"
-              class="btn"
-              id="checkout-btn"
-              name= "place_order"
-              value="Place Order"
-            />
-          </div>
-        </form>
+    </section>
+
+    <!--Orders-->
+    <section class="orders container my-5 py-3">
+      <div class="container mt-2">
+        <h2 class="font-weight-blode text-center">Your Order</h2>
+        <hr class="mx-auto">
       </div>
+
+      <table class="mt-5 pt-5">
+        <tr>
+          <th>Product</th>
+          <th>Date</th>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-info">
+                <img src="assets/imgs/featured1.jpg"/>
+                <div>
+                    <p class="mt-3">White Shoes</p>
+                </div>
+            </div>
+          </td>
+          <td>
+            <span>2036-5-8</span>
+          </td>
+        </tr>
+
+       
+
+        
+      </table>
+      
+      
+
     </section>
 
     <!--Footer-->
@@ -249,6 +228,7 @@ if ( !empty($_SESSION['cart']) && isset($_POST['checkout'])){
         </div>
       </div>
     </footer>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

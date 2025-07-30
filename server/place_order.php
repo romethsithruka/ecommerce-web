@@ -28,23 +28,54 @@ include('connection.php');
     $stmt->bind_param('isiisss',$order_cost, $order_status,$user_id, $phone,$city,$address,$order_date);
 
     $stmt->execute();
+ // 2 store information in fo in database
+    $order_id = $stmt->insert_id;
 
-    // 2 get products from cart
+    echo $order_id;
 
-    // 3 store information in fo in database
+    // 3 get products from cart
+
+    foreach ($_SESSION['cart'] as $key => $product) {
+
+    $product_id = $product['product_id'];
+    $product_name = $product['product_name'];
+    $product_image = $product['product_image'];
+    $product_price = $product['product_price'];
+    $product_quantity = $product['product_quantity'];
+// 4 store each singke item in order_item database
+    $stmt1 = $conn->prepare("INSERT INTO order_items 
+        (order_id, product_id, product_name, product_image, product_price, product_quantity, user_id, order_date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
+    $stmt1->bind_param("iissiiis", 
+        $order_id, 
+        $product_id, 
+        $product_name, 
+        $product_image, 
+        $product_price, 
+        $product_quantity, 
+        $user_id, 
+        $order_date
+    );
+
+    $stmt1->execute();
+}
+
+   
 
 
 
-    // 4 store each singke item in order_item database
+    
 
 
 
-    // 5 remove evething from create
+    // 5 remove evething from crrt ->delay until payment is done
+    // unset($_SESSION['cart']);
 
 
 
     // 6  inform user wherether everething is fine or thereis problem
-
+    header('location: ../payment.php?order_status=order placed successfully');
 
 
 

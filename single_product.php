@@ -30,7 +30,7 @@ if(isset($_GET['product_id'])){
     
 </head>
 <body>
-    <!--navbar-->
+   <!--navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top">
       <div class="container">
         <img class="logo" src="assets/imgs/logo.jpg" />
@@ -52,7 +52,7 @@ if(isset($_GET['product_id'])){
         >
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="shop.html">Shop</a>
@@ -65,7 +65,7 @@ if(isset($_GET['product_id'])){
             </li>
 
             <li class="nav-item">
-              <a href="cart.html"
+              <a href="cart.php"
                 ><i class="fas fa-solid fa-cart-shopping"></i
               ></a>
               <a href="account.html"><i class="fas fa-user"></i></a>

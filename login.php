@@ -1,3 +1,94 @@
+<?php
+
+session_start();
+include('server/connection.php');
+
+if(isset($_SESSION['logged_in'])){
+
+    header('location: account.php');
+    exit;
+
+}
+
+
+if(isset($_POST['login_btn'])){
+
+
+    $email = $POST["email"];
+    $password = md5($POST['password']);
+
+
+    $stmt = $conn->prepare("SELECT user_id,user_name,user_email,User_password FROM users WHERE user_email = ? AND user_password =? LIMIT 1");
+
+
+    $stmt->bind_param('ss',$email,$password);
+
+
+    if($stmt->execute()){
+
+      $stmt->bind_result($user_id,$user_name,$user_email,$user_password);
+      $stmt->store_result();
+
+
+
+    
+
+    if($stmt->num_rows() ==1){
+        $stmt->fetch();
+
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['user_name'] = $user_name;
+        $_SESSION['user_email'] = $user_email;
+        $_SESSION['logged_in'] = true;
+
+
+  header('location: account.php?messege= loggeg in successfully');
+
+    }else{
+      header('location: login.php?error= could not  verify your accunt');
+    }
+ 
+  
+}else{
+
+  //error
+
+  header('location: login.php?error= something went wrong');
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +101,7 @@
     
 </head>
 <body>
-    <!--navbar-->
+   <!--navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top">
       <div class="container">
         <img class="logo" src="assets/imgs/logo.jpg" />
@@ -32,7 +123,7 @@
         >
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="shop.html">Shop</a>
@@ -45,7 +136,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="cart.html"
+              <a href="cart.php"
                 ><i class="fas fa-solid fa-cart-shopping"></i
               ></a>
               <a href="account.html"><i class="fas fa-user"></i></a>
@@ -63,7 +154,8 @@
             <hr class="mx-auto">
         </div>
         <div class="mx-auto container">
-            <form id="login-form">
+            <form id="login-form" method="POST" action="login.php">
+              <p stlye ="color:red"  class="text-center"><?php if(isset($_GET['error'])){echo $_GET['error'];}?></p>
                 <div class="form-group">
                     <label for="">Email</label>
                     <input type="text" class="form-control" id="login-email" name="email" placeholder="Email" required/>
@@ -74,11 +166,11 @@
                 </div>
                 <div class="form-group">
                    
-                    <input type="submit" class="btn" id="login-btn" value="Login"/>
+                    <input type="submit" class="btn" id="login-btn" name="login_btn" value="Login"/>
                 </div>
                 <div class="form-group">
                    
-                    <a id="register-url" class="btn" href="">Dont have account? Register</a>
+                    <a id="register-url" class="btn" href="register.php">Dont have account? Register</a>
                 </div>
             </form>
         </div>

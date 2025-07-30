@@ -52,10 +52,10 @@
             </li>
 
             <li class="nav-item">
-              <a href="cart.html"
+              <a href="cart.php"
                 ><i class="fas fa-solid fa-cart-shopping"></i
               ></a>
-              <a href="account.html"><i class="fas fa-user"></i></a>
+              <a href="account.php"><i class="fas fa-user"></i></a>
             </li>
           </ul>
         </div>
